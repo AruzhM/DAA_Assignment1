@@ -302,3 +302,44 @@ QuickSelect reuses the same partitioning method and processes only the side
 that can contain the required position. Overall, the benchmark and
 correctness tests show how theoretical complexity and implementation details
 both influence the practical performance of algorithms.
+
+
+## 10. Bonus A — Deterministic Select (Median of Medians)
+
+The bonus implementation adds a deterministic selection algorithm based on the Median of Medians method. The array is divided into groups of at most five elements. Each group is sorted using Insertion Sort, and its median is stored in an auxiliary array. The median of these medians is then found recursively and used as the pivot for the selection step.
+
+Unlike the standard QuickSelect implementation, which chooses a random pivot, Deterministic Select chooses the pivot deterministically. This provides a guaranteed O(n) worst-case running time.
+
+The two selection algorithms were compared on random and sorted arrays using four input sizes and five runs per case. The median execution time and number of comparisons were recorded.
+
+| Input | n | QuickSelect Time | DeterministicSelect Time | QuickSelect Comparisons | DeterministicSelect Comparisons |
+|---|---:|---:|---:|---:|---:|
+| Random | 1,000 | 0.1399 ms | 0.1825 ms | 2,867 | 7,809 |
+| Random | 10,000 | 0.2133 ms | 0.5604 ms | 25,867 | 78,603 |
+| Random | 100,000 | 1.1405 ms | 3.8190 ms | 299,647 | 822,580 |
+| Random | 1,000,000 | 11.7782 ms | 41.1638 ms | 3,071,972 | 8,468,718 |
+| Sorted | 1,000 | 0.0191 ms | 0.0314 ms | 3,647 | 5,234 |
+| Sorted | 10,000 | 0.0307 ms | 0.1072 ms | 26,937 | 56,416 |
+| Sorted | 100,000 | 0.2991 ms | 1.0079 ms | 314,976 | 582,685 |
+| Sorted | 1,000,000 | 4.4345 ms | 10.4840 ms | 4,360,887 | 5,922,491 |
+
+The experiments show that Deterministic Select is slower and performs more comparisons than QuickSelect for the tested inputs. This is caused by the additional work required to divide the elements into groups, sort each group, and recursively compute the median of medians.
+
+However, the purpose of Median of Medians is not to minimize the constant factors in typical cases. Its main advantage is that the pivot quality is controlled deterministically, which provides a guaranteed O(n) worst-case bound. The comparison counts per input element remain within a relatively limited range as n increases, which is consistent with linear growth in the tested range.
+
+Therefore, the experiment demonstrates the trade-off between practical performance and worst-case guarantees: QuickSelect has lower measured overhead in these experiments, while Deterministic Select provides a deterministic worst-case linear-time guarantee.
+
+
+## 11. Bonus B — Closest Pair of Points
+
+The second bonus implements the Closest Pair of Points problem using a Divide-and-Conquer algorithm for two-dimensional points.
+
+The points are first sorted by their x-coordinate and y-coordinate. The set is then divided into two halves, and the closest pair is found recursively in each half. Let δ be the minimum of the closest distances found in the left and right halves. A strip of width 2δ around the middle line is then constructed. The points in the strip are already ordered by y-coordinate, so only the next seven points need to be checked for each point.
+
+The implementation has O(n log n) expected running time based on the Divide-and-Conquer recurrence:
+
+`T(n) = 2T(n/2) + O(n)`
+
+The result was verified against a separate brute-force O(n²) implementation. Twenty random test cases were generated, with each test containing between 2 and 2000 points. The Divide-and-Conquer result matched the brute-force result for all test cases.
+
+Additional edge cases were also tested, including duplicate points. Duplicate points correctly produce a minimum distance of zero.

@@ -1,0 +1,17 @@
+algorithm,input,n,time_ms,comparisons
+QuickSelect,random,1000,0.139900,2867
+DeterministicSelect,random,1000,0.182500,7809
+QuickSelect,sorted,1000,0.019100,3647
+DeterministicSelect,sorted,1000,0.031400,5234
+QuickSelect,random,10000,0.213300,25867
+DeterministicSelect,random,10000,0.560400,78603
+QuickSelect,sorted,10000,0.030700,26937
+DeterministicSelect,sorted,10000,0.107200,56416
+QuickSelect,random,100000,1.140500,299647
+DeterministicSelect,random,100000,3.819000,822580
+QuickSelect,sorted,100000,0.299100,314976
+DeterministicSelect,sorted,100000,1.007900,582685
+QuickSelect,random,1000000,11.778200,3071972
+DeterministicSelect,random,1000000,41.163800,8468718
+QuickSelect,sorted,1000000,4.434500,4360887
+DeterministicSelect,sorted,1000000,10.484000,5922491
